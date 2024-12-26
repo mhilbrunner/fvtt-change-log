@@ -15,15 +15,6 @@ Hooks.on('init', () => {
     }
 })
 
-Hooks.on('chat-tabs.init', () => {
-    const data = {
-        key: 'change-log',
-        label: 'Change Log',
-        hint: game.i18n.localize('changeLog.chatTabs.hint')
-    }
-    game.chatTabs.register(data)
-})
-
 Hooks.on('getChatLogEntryContext', async (html, menuItems) => {
     const menuItem = {
         name: 'Undo Change',
@@ -484,9 +475,6 @@ export class ChangeLog {
                     key,
                     type: documentType,
                     val: (changeType === 'preUpdate') ? oldValue : null
-                },
-                'chat-tabs': {
-                    module: 'change-log'
                 }
             }
         flags['change-log'].tokenId = tokenId
