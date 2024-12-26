@@ -1,17 +1,21 @@
 {
     "id": "change-log",
     "title": "Change Log",
-    "description": "",
-    "version": "This is auto replaced",
+    "description": "A Foundry VTT module to log actor changes to the chat log.",
+    "version": "1.0",
     "library": "false",
     "compatibility": {
         "minimum": 10,
-        "verified": 11.315
+        "verified": 12
     },
     "authors": [
         {
             "name": "Larkinabout",
             "url": "https://github.com/Larkinabout"
+        },
+        {
+            "name": "mhilbrunner",
+            "url": "https://github.com/mhilbrunner"
         }
     ],
     "esmodules": ["dist/change-log.js"],
@@ -52,19 +56,9 @@
             "path": "languages/swade/en.json"
         }
     ],
-    "relationships": {
-        "recommends": {
-            "id": "chat-tabs",
-            "manifest": "https://github.com/mclemente/fvtt-chat-tabs/releases/latest/download/module.json",
-            "type": "module",
-            "compatibility": {
-                "minimum": "1.3.2",
-                "verified": "1.3.2"
-            }
-        }
-    },
-    "url": "This is auto replaced",
-    "manifest": "This is auto replaced",
-    "download": "This is auto replaced",
-    "readme": "https://github.com/Larkinabout/fvtt-change-log#readme"
+    "relationships": {},
+    "url": "https://github.com/mhilbrunner/fvtt-change-log",
+    "manifest": "https://github.com/mhilbrunner/fvtt-change-log/releases/latest/download/module.json",
+    "download": "https://github.com/mhilbrunner/fvtt-change-log/releases/download/1.0/module.zip",
+    "readme": "https://github.com/mhilbrunner/fvtt-change-log#readme"
 }
