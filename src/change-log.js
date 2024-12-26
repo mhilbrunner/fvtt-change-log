@@ -100,6 +100,7 @@ export class ChangeLog {
             this.getPlayerProperties(),
             this.getShowEquation(),
             this.getShowRecipients(),
+            this.getOnlyPlayerActors(),
             this.getShowSender()
         ])
     }
@@ -130,6 +131,10 @@ export class ChangeLog {
 
     async getShowRecipients () {
         this.showRecipients = await Utils.getSetting('showRecipients')
+    }
+
+    async getOnlyPlayerActors () {
+        this.getOnlyPlayerActors = await Utils.getSetting('onlyPlayerActors')
     }
 
     async getShowSender () {
@@ -482,6 +487,10 @@ export class ChangeLog {
 
         if (!this.#isValidChange({ oldValue, newValue })) return
         if (!this.#isFirstOwner()) return
+
+        if (this.getOnlyPlayerActors() && actor && !actor.hasPlayerOwner) {
+            return;
+        }
 
         const content = await renderTemplate(
             TEMPLATE.CHAT_CARD,
