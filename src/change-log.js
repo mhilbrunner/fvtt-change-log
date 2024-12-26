@@ -486,7 +486,6 @@ export class ChangeLog {
         const content = await renderTemplate(
             TEMPLATE.CHAT_CARD,
             {
-                document1Name,
                 document2Name,
                 propertyName: Utils.getPropertyName(`${documentType}.${key}`),
                 oldValue: Utils.getPropertyValue(oldValue),
@@ -500,7 +499,8 @@ export class ChangeLog {
         const owners = this.#getOwners(actor)
         const gms = this.#getGms()
 
-        const speaker = { alias: 'Change Log' }
+        const name = document1Name ? document1Name : "???";
+        const speaker = { alias: game.i18n.format('changelog.change', {change: name}) }
 
         let whisper = null
         if (!isEveryone) {
