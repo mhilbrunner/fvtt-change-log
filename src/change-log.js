@@ -134,7 +134,7 @@ export class ChangeLog {
     }
 
     async getOnlyPlayerActors () {
-        this.getOnlyPlayerActors = await Utils.getSetting('onlyPlayerActors')
+        this.onlyPlayerActors = await Utils.getSetting('onlyPlayerActors')
     }
 
     async getShowSender () {
@@ -446,7 +446,7 @@ export class ChangeLog {
         return game.user?.id === this.#firstGM()?.id;
     }
 
-    #firstOwner(doc) {
+    #firstOwner (doc) {
         if (!doc) return undefined;
 
         // Tokens derive permissions from their (synthetic) actor data.
@@ -474,8 +474,14 @@ export class ChangeLog {
         return this.#firstGM();
     }
 
-    #isFirstOwner(doc) {
-        return game.user.id === this.#firstOwner(doc).id;
+    #isFirstOwner (doc) {
+        return game.user.id === this.#firstOwner(doc)?.id;
+    }
+
+    #uniqueArray (a) {
+        return a.filter(function(item, pos) {
+            return a.indexOf(item) == pos;
+        })
     }
 
     async #createChatMessage (changeType, templateData, whisperData) {
@@ -486,7 +492,7 @@ export class ChangeLog {
         const { actor, isEveryone, isGm, isPlayer } = whisperData
 
         if (!this.#isValidChange({ oldValue, newValue })) return
-        if (!this.#isFirstOwner()) return
+        if (!this.#isFirstOwner(actor)) return
 
         if (this.getOnlyPlayerActors() && actor && !actor.hasPlayerOwner) {
             return;
@@ -516,6 +522,9 @@ export class ChangeLog {
             whisper = []
             if (isGm) whisper.push(...gms)
             if (isPlayer) whisper.push(...owners)
+        }
+        if (whisper) {
+            whisper = this.#uniqueArray(whisper);
         }
 
         const flags =
